@@ -32,7 +32,6 @@ func Init(ctx context.Context) {
 		FullTimestamp: true,
 	}
 	logrusLogger.SetOutput(os.Stdout)
-	// TODO не работает, починить
 	logrusLogger.SetReportCaller(true)
 	logrusLogger.WithContext(ctx)
 
