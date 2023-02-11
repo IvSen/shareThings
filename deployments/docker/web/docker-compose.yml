@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+    postgres:
+        container_name: share_things_postgres
+        build:
+            context: .
+            dockerfile: Dockerfile-db
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: pass
+            POSTGRES_DB: shareThings_last
+        volumes:
+            - ./data/postgres:/var/lib/postgresql/data
+            - ./db:/docker-entrypoint-initdb.d/
+        ports:
+          - "5455:5432"
+
+#    consul:
+#        image: registry.rtty.in/adserver/consul:latest
+#        command: "agent -dev -bind=0.0.0.0 -client=0.0.0.0 -server -ui -bootstrap -config-file=/config/consul.json -enable-local-script-checks"
+#        ports:
+#            - "8500:8500"
+#        volumes:
+#            - ./consul.json/:/config/consul.json
+
+#    jaeger-all-in-one:
+#        image: jaegertracing/all-in-one
+#        ports:
+#            - "5775:5775/udp"
+#            - "6831:6831/udp"
+#            - "6832:6832/udp"
+#            - "5778:5778"
+#            - "16686:16686"
+#            - "14268:14268"

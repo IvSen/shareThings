@@ -1,0 +1,102 @@
+{
+  "services": [
+    {
+      "name": "mysql_slave",
+      "tags": [
+        "web"
+      ],
+      "address": "dbread.propellerads.com",
+      "port": 3306
+    },
+    {
+      "name": "grpc-user-data",
+      "tags": [
+        "web"
+      ],
+      "address": "1userdata12.rtty.in",
+      "port": 2393
+    },
+    {
+      "name": "grpc-qualitator",
+      "tags": [
+        "web"
+      ],
+      "address": "1userdata05.rtty.in",
+      "port": 6971
+    },
+    {
+      "name": "grpc-rotator",
+      "tags": [
+        "web"
+      ],
+      "address": "1rotator03.rtty.in",
+      "port": 27972
+    },
+    {
+      "name": "grpc-idgenerator",
+      "tags": [
+        "web"
+      ],
+      "address": "adex01.rtty.in",
+      "port": 7182
+    },
+    {
+      "name": "jaeger-agent",
+      "tags": [
+        "web"
+      ],
+      "address": "127.0.0.1",
+      "port": 6831
+    },
+    {
+      "name": "jaeger-collector",
+      "tags": [
+        "web"
+      ],
+      "address": "127.0.0.1",
+      "port": 14268
+    },
+    {
+      "name": "grpc-storage",
+      "tags": [
+        "web"
+      ],
+      "address": "storage08.rtty.in",
+      "port": 7301
+    },
+    {
+      "name": "grpc-gdetector",
+      "tags": [
+        "web"
+      ],
+      "address": "1userdata05.rtty.in",
+      "port": 4180
+    },
+    {
+      "name": "pg_read",
+      "tags": ["web"],
+      "address": "adp-pg-read-01.rtty.in",
+      "port": 5432
+    },
+    {
+      "name": "http-iclick",
+      "ID": "http-iclick-11",
+      "tags": ["web"],
+      "address": "1app11.rtty.in",
+      "port": 7180
+    },
+    {
+      "name": "http-iclick",
+      "ID": "http-iclick-12",
+      "tags": ["web"],
+      "address": "1app12.rtty.in",
+      "port": 7180
+    },
+    {
+      "name": "grpc-checker",
+      "tags": ["web"],
+      "address": "adex01.rtty.in",
+      "port": 8284
+    }
+  ]
+}

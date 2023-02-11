@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+.tmp
+*.log
+/cmd/shareThings/build/*
+/deployments/docker/web/data/*
