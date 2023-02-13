@@ -18,7 +18,7 @@ lint:
 build: clean $(APP_BIN)
 
 $(APP_BIN):
-	go build -o $(APP_BIN) ./app/cmd/shareThings/main.go
+	go build -o $(APP_BIN) ./cmd/shareThings/main.go
 
 .PHONY: clean
 clean:
@@ -26,7 +26,7 @@ clean:
 
 .PHONY: swagger
 swagger:
-	swag init -g ./app/cmd/app/main.go -o ./app/docs
+	swag init -g ./cmd/shareThings/main.go -o ./docs
 
 .PHONY: migrate
 migrate:

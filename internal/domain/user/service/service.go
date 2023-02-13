@@ -136,5 +136,6 @@ func (s *UserService) GeneratePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 
+	// TODO: взять из конфига
 	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
 }

@@ -12,7 +12,7 @@ http:
     debug: true
     allowed-methods: ["GET", "POST", "PATCH", "PUT", "OPTIONS", "DELETE"]
     allowed-origins:
-      - "http://localhost:3000"
+      - "http://localhost:30001"
     allow-credentials: true
     allowed-headers:
       - "Authorization"
@@ -38,5 +38,7 @@ postgresql:
   password: pass
   database: shareThings
 
+security:
+  salt: "hjqrhjqw1246sdfsdf17ajfhsdfsdfajs"
 JWT:
   secret: "fghjkghjkhjkhjklhgjkluyihjbnmwefdsc"

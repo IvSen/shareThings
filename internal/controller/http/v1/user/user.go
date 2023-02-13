@@ -38,12 +38,6 @@ func (h *Handler) Register(router *httprouter.Router) {
 
 func (h *Handler) updateUser(w http.ResponseWriter, r *http.Request) error {
 	logger := logging.GetLogger()
-	//params := httprouter.ParamsFromContext(r.Context())
-	//logger.WithFields(map[string]interface{}{
-	//	"Method": r.Method,
-	//	"Path":   r.URL.Path,
-	//	"Params": params,
-	//})
 	var user model.User
 
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {

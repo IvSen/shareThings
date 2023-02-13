@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 
+	httpSwagger "github.com/swaggo/http-swagger"
+
 	"github.com/IvSen/shareThings/internal/composites"
 
 	"github.com/IvSen/shareThings/pkg/metric"
@@ -14,6 +16,7 @@ import (
 	"github.com/IvSen/shareThings/pkg/config"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
+	_ "github.com/swaggo/http-swagger/example/go-chi/docs"
 	"golang.org/x/sync/errgroup"
 
 	"net"
@@ -33,6 +36,10 @@ type App struct {
 func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (App, error) {
 	logger.Info("router initializing")
 	router := httprouter.New()
+
+	logger.Info(ctx, "swagger docs initializing")
+	router.Handler(http.MethodGet, "/swagger", http.RedirectHandler("/swagger/index.html", http.StatusMovedPermanently))
+	router.Handler(http.MethodGet, "/swagger/*any", httpSwagger.WrapHandler)
 
 	logger.Info("heartbeat metric initializing")
 	metricHandler := metric.Handler{}

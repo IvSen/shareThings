@@ -38,9 +38,13 @@ type Config struct {
 		Port     string `yaml:"port" env:"PSQL_PORT" env-required:"true"`
 		Database string `yaml:"database" env:"PSQL_DATABASE" env-required:"true"`
 	} `yaml:"postgresql"`
+	// TODO: перенести в раздел Security
 	JWT struct {
 		Secret string `yaml:"secret" env-required:"true"`
 	} `yaml:"JWT"`
+	Security struct {
+		Salt string `yaml:"salt" env-required:"true"`
+	} `yaml:"security"`
 }
 
 const (
