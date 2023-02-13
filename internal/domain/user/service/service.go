@@ -15,7 +15,8 @@ import (
 
 const (
 	// TODO: вынести в конфиг
-	salt     = "hjqrhjqw1246sdfsdf17ajfhsdfsdfajs"
+	salt = "hjqrhjqw1246sdfsdf17ajfhsdfsdfajs"
+	// TODO: вынести конфиг
 	tokenTTL = 6 * time.Hour
 )
 
@@ -23,10 +24,7 @@ type repository interface {
 	One(context.Context, string) (*dao.User, error)
 	Create(*context.Context, *dao.User) (*dao.User, error)
 	Update(*context.Context, *dao.User) (*dao.User, error)
-	Delete(*context.Context, string) error
-	GetByLogin(context.Context, string) (*dao.User, error)
 	GetByEmailAndPassword(context.Context, string, string) (*dao.User, error)
-	//GenerateToken(*context.Context, dto.UserLoginRequest) (*dao.User, error)
 }
 
 type UserService struct {
@@ -110,15 +108,7 @@ func (s *UserService) One(ctx context.Context, id string) (*model.User, error) {
 
 	return model.NewUser(one), nil
 }
-func (s *UserService) GetByLogin(ctx context.Context, email string) (*dao.User, error) {
-	one, err := s.repository.GetByLogin(ctx, email)
-	if err != nil {
-		return nil, err
-	}
 
-	return one, nil
-	//return model.NewUser(one), nil
-}
 func (s *UserService) GetByEmailAndPassword(ctx context.Context, email string, password string) (*dao.User, error) {
 	one, err := s.repository.GetByEmailAndPassword(ctx, email, password)
 	if err != nil {
@@ -126,10 +116,6 @@ func (s *UserService) GetByEmailAndPassword(ctx context.Context, email string, p
 	}
 
 	return one, nil
-}
-
-func (s *UserService) Delete(ctx *context.Context, id string) error {
-	return s.repository.Delete(ctx, id)
 }
 
 func (s *UserService) GeneratePasswordHash(password string) string {

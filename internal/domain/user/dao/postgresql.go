@@ -37,8 +37,7 @@ func (s *UserDAO) Create(ctx *context.Context, user *User) (*User, error) {
 		fmt.Println(result.Error)
 	}
 
-	//return user, result.Error
-	return nil, result.Error
+	return user, result.Error
 }
 
 func (s *UserDAO) One(ctx context.Context, id string) (*User, error) {
@@ -62,31 +61,12 @@ func (s *UserDAO) GetByEmailAndPassword(ctx context.Context, email string, passw
 	return user, resultQ.Error
 }
 
-func (s *UserDAO) GetByLogin(ctx context.Context, email string) (*User, error) {
-	client := s.client.WithContext(ctx)
-	var user = &User{}
-	resultQ := client.Model(User{
-		Email: email,
-	}).First(&user)
-
-	return user, resultQ.Error
-}
-func (s *UserDAO) GenerateToken(ctx *context.Context, email string) (*User, error) {
-	client := s.client.WithContext(*ctx)
-	var user = &User{}
-	resultQ := client.Model(User{
-		Email: email,
-	}).First(&user)
-
-	return user, resultQ.Error
-}
-
 func (s *UserDAO) Update(ctx *context.Context, user *User) (*User, error) {
-	return nil, nil
-}
-
-func (s *UserDAO) Delete(ctx *context.Context, id string) error {
 	client := s.client.WithContext(*ctx)
-	result := client.Delete(&User{}, id)
-	return result.Error
+	result := client.Save(&user)
+	if result.Error != nil {
+		// TODO: log
+		fmt.Println(result.Error)
+	}
+	return user, result.Error
 }

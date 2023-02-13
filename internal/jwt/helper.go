@@ -48,8 +48,9 @@ func (h *helper) GenerateAccessToken(u User) ([]byte, error) {
 
 	claims := UserClaims{
 		RegisteredClaims: jwt.RegisteredClaims{
-			ID:        u.UUID,
-			Audience:  []string{"users"},
+			ID:       u.UUID,
+			Audience: []string{"users"},
+			// TODO: взять из конфига
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 60)),
 		},
 		Email: u.Email,
