@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/IvSen/shareThings/pkg/client/postgresql"
+	"github.com/IvSen/shareThings/internal/composites"
 
 	"github.com/IvSen/shareThings/pkg/metric"
 
@@ -15,7 +15,6 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
 	"golang.org/x/sync/errgroup"
-	"gorm.io/gorm"
 
 	"net"
 	"net/http"
@@ -28,7 +27,7 @@ type App struct {
 	router     *httprouter.Router
 	httpServer *http.Server
 
-	pgClient *gorm.DB
+	//pgClient *gorm.DB
 }
 
 func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (App, error) {
@@ -39,12 +38,8 @@ func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (
 	metricHandler := metric.Handler{}
 	metricHandler.Register(router)
 
-	logger.Info("postgresql initializing")
-	pgConfig := postgresql.NewPgConfig(
-		config.PostgreSQL.Username, config.PostgreSQL.Password,
-		config.PostgreSQL.Host, config.PostgreSQL.Port, config.PostgreSQL.Database,
-	)
-	pgClient, err := postgresql.NewClient(pgConfig)
+	logger.Info("postgresql composite initializing")
+	pgClient, err := composites.NewPgClientComposite(config)
 	if err != nil {
 		logging.GetLogger().Fatal(ctx, err)
 	}
@@ -53,11 +48,40 @@ func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (
 	//pgClient.AutoMigrate(&daoAlbum.Album{})
 	//pgClient.AutoMigrate(&daoPhoto.Photo{})
 
+	logger.Println("cache composite initializing")
+	// TODO: вынести в конфиг размер кеша
+	cacheComposite, err := composites.NewCacheComposite(104857600) // 100MB
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+
+	logger.Info("jwt composite initializing")
+	jwtComposite, err := composites.NewJWTComposite(cacheComposite, logger)
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+
+	logger.Info("auth composite initializing")
+	authComposite, err := composites.NewAuthComposite(pgClient, jwtComposite)
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+	authComposite.AuthHandler.Register(router)
+
+	logger.Info("user composite initializing")
+	userComposite, err := composites.NewUserComposite(pgClient, jwtComposite)
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+	userComposite.UserHandler.Register(router)
+
+	//auth.NewHandler()
+
 	return App{
-		cfg:      config,
-		pgClient: pgClient,
-		router:   router,
-		logger:   logger,
+		cfg: config,
+		//pgClient: pgClient.Db,
+		router: router,
+		logger: logger,
 	}, nil
 }
 

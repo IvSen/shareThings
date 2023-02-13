@@ -37,3 +37,6 @@ postgresql:
   username: postgres
   password: pass
   database: shareThings
+
+JWT:
+  secret: "fghjkghjkhjkhjklhgjkluyihjbnmwefdsc"

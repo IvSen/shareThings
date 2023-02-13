@@ -4,7 +4,12 @@ go 1.19
 
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/coocood/freecache v1.2.3 // indirect
+	github.com/cristalhq/jwt/v3 v3.1.0 // indirect
+	github.com/cristalhq/jwt/v4 v4.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/ilyakaznacheev/cleanenv v1.4.2 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
