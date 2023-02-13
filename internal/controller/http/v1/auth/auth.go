@@ -51,7 +51,7 @@ func (h *Handler) Signup(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 	token, err := h.JWTHelper.GenerateAccessToken(jwt.User{
-		UUID:     u.UUID,
+		UUID:     u.Id,
 		Email:    u.Email,
 		Password: h.UserService.GeneratePasswordHash(u.Password),
 	})
@@ -82,7 +82,7 @@ func (h *Handler) Auth(w http.ResponseWriter, r *http.Request) error {
 			return err
 		}
 		token, err = h.JWTHelper.GenerateAccessToken(jwt.User{
-			UUID:     u.UUID,
+			UUID:     u.Id,
 			Email:    u.Email,
 			Password: h.UserService.GeneratePasswordHash(u.Password),
 		})

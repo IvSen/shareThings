@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	UUID     string
+	Id       string
 	Name     string
 	Email    string
 	Password string
@@ -13,12 +13,11 @@ type User struct {
 	City     string
 	District string
 	Postcode string
-	//PhotoId   *int64
 }
 
 func NewUser(sp *dao.User) *User {
 	return &User{
-		UUID:     sp.Model.UUID,
+		Id:       sp.Model.Id,
 		Name:     sp.Name,
 		Email:    sp.Email,
 		Country:  sp.Country.String,

@@ -45,7 +45,7 @@ func (s *UserDAO) One(ctx context.Context, id string) (*User, error) {
 	client := s.client.WithContext(ctx)
 	var user = &User{}
 	resultQ := client.Model(User{
-		Model: gormModel.Model{UUID: id},
+		Model: gormModel.Model{Id: id},
 	}).First(&user)
 
 	return user, resultQ.Error
@@ -85,7 +85,7 @@ func (s *UserDAO) Update(ctx *context.Context, user *User) (*User, error) {
 	return nil, nil
 }
 
-func (s *UserDAO) Delete(ctx *context.Context, id uint) error {
+func (s *UserDAO) Delete(ctx *context.Context, id string) error {
 	client := s.client.WithContext(*ctx)
 	result := client.Delete(&User{}, id)
 	return result.Error

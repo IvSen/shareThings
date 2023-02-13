@@ -23,7 +23,7 @@ type repository interface {
 	One(context.Context, string) (*dao.User, error)
 	Create(*context.Context, *dao.User) (*dao.User, error)
 	Update(*context.Context, *dao.User) (*dao.User, error)
-	Delete(*context.Context, uint) error
+	Delete(*context.Context, string) error
 	GetByLogin(context.Context, string) (*dao.User, error)
 	GetByEmailAndPassword(context.Context, string, string) (*dao.User, error)
 	//GenerateToken(*context.Context, dto.UserLoginRequest) (*dao.User, error)
@@ -57,7 +57,7 @@ func (s *UserService) Create(ctx context.Context, user *dto.CreateUserRequest) (
 }
 
 func (s *UserService) Update(ctx context.Context, user *model.User) (*model.User, error) {
-	userFromDB, err := s.One(ctx, user.UUID)
+	userFromDB, err := s.One(ctx, user.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (s *UserService) GetByEmailAndPassword(ctx context.Context, email string, p
 	return one, nil
 }
 
-func (s *UserService) Delete(ctx *context.Context, id uint) error {
+func (s *UserService) Delete(ctx *context.Context, id string) error {
 	return s.repository.Delete(ctx, id)
 }
 
