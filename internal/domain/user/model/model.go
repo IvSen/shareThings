@@ -15,7 +15,7 @@ type User struct {
 	Postcode string
 }
 
-func NewUser(sp *dao.User) *User {
+func DtoToDb(sp *dao.User) *User {
 	return &User{
 		Id:       sp.Model.Id,
 		Name:     sp.Name,

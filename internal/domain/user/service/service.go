@@ -51,7 +51,7 @@ func (s *UserService) Create(ctx context.Context, user *dto.CreateUserRequest) (
 		return nil, err
 	}
 
-	return model.NewUser(create), nil
+	return model.DtoToDb(create), nil
 }
 
 func (s *UserService) Update(ctx context.Context, user *model.User) (*model.User, error) {
@@ -97,7 +97,7 @@ func (s *UserService) Update(ctx context.Context, user *model.User) (*model.User
 		return nil, err
 	}
 
-	return model.NewUser(updatedUser), nil
+	return model.DtoToDb(updatedUser), nil
 }
 
 func (s *UserService) One(ctx context.Context, id string) (*model.User, error) {
@@ -106,7 +106,7 @@ func (s *UserService) One(ctx context.Context, id string) (*model.User, error) {
 		return nil, err
 	}
 
-	return model.NewUser(one), nil
+	return model.DtoToDb(one), nil
 }
 
 func (s *UserService) GetByEmailAndPassword(ctx context.Context, email string, password string) (*dao.User, error) {
