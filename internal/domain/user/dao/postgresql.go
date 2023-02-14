@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 
-	gormModel "github.com/IvSen/shareThings/pkg/client/postgresql/gorm"
 	"gorm.io/gorm"
 )
 
@@ -43,9 +42,7 @@ func (s *UserDAO) Create(ctx *context.Context, user *User) (*User, error) {
 func (s *UserDAO) One(ctx context.Context, id string) (*User, error) {
 	client := s.client.WithContext(ctx)
 	var user = &User{}
-	resultQ := client.Model(User{
-		Model: gormModel.Model{Id: id},
-	}).First(&user)
+	resultQ := client.First(user, "id = ?", id)
 
 	return user, resultQ.Error
 }
