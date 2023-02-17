@@ -1,8 +1,7 @@
 package dao
 
 import (
-	genderDao "github.com/IvSen/shareThings/internal/domain/gender/dao"
-	userDao "github.com/IvSen/shareThings/internal/domain/user/dao"
+	"database/sql"
 
 	"github.com/IvSen/shareThings/pkg/client/postgresql/gorm"
 )
@@ -10,8 +9,6 @@ import (
 type Child struct {
 	gorm.Model
 	Name     string
-	UserID   *uint
-	User     *userDao.User
-	GenderID *uint
-	Gender   *genderDao.Gender
+	UserID   string
+	GenderID sql.NullInt64
 }

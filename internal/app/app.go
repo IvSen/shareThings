@@ -89,6 +89,13 @@ func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (
 	}
 	genderComposite.GenderHandler.Register(router)
 
+	logger.Info("child composite initializing")
+	childComposite, err := composites.NewChildComposite(pgClient, jwtComposite)
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+	childComposite.ChildHandler.Register(router)
+
 	//auth.NewHandler()
 
 	return App{

@@ -78,10 +78,6 @@ func (s *UserService) Update(ctx context.Context, user *model.User) (*model.User
 		userFromDB.Postcode = user.Postcode
 	}
 
-	//if len(user.PhotoId) > 0 {
-	//	userFromDB.PhotoId = user.PhotoId
-	//}
-
 	StorageModel := dao.User{
 		Name:     user.Name,
 		Email:    user.Email,
