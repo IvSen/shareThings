@@ -96,6 +96,13 @@ func NewApp(ctx context.Context, config *config.Config, logger logging.Logger) (
 	}
 	childComposite.ChildHandler.Register(router)
 
+	logger.Info("item category composite initializing")
+	categoryComposite, err := composites.NewCategoryComposite(pgClient, jwtComposite)
+	if err != nil {
+		logging.GetLogger().Fatal(ctx, err)
+	}
+	categoryComposite.CategoryHandler.Register(router)
+
 	//auth.NewHandler()
 
 	return App{
